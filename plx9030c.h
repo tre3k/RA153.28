@@ -61,6 +61,10 @@ namespace PLX9030{
         uint32_t read32(unsigned long int base, long int offset);
         void write32(unsigned long int base, long int offset, uint32_t twoword);
 
+        /* set mask / unset mask - selective set/unset bits in register by mask */
+        // mask - just or operation (bit1|bit2|bit3)
+        void setMask(unsigned long int base, long int offset, unsigned char mask);
+        void unsetMask(unsigned long int base, long int offset, unsigned char mask);
     };
 }
 
