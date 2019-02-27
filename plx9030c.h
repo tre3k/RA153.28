@@ -24,7 +24,6 @@ namespace PLX9030{
 
     enum{
         STATUS_OK,
-        STATUS_ERROR,
         STATUS_FD_ERROR,
         STATUS_WRITE_ERROR,
         STATUS_READ_ERROR,

@@ -73,3 +73,31 @@ void plx9030::write24(unsigned long int base, long int offset, uint32_t twoword)
         write8(base,offset+i,byte);
     }
 }
+
+uint32_t plx9030::read32(unsigned long int base, long int offset) {
+    uint32_t retval = 0;
+    for(int i=0;i<4;i++){
+        retval |= ((read8(base,offset+i)&0xff) << 8*i);
+    }
+    return retval;
+}
+
+void plx9030::write32(unsigned long int base, long int offset, uint32_t twoword) {
+    char byte = 0;
+    for(int i=0;i<4;i++){
+        byte = (char)((twoword>>8*i)&0xff);
+        write8(base,offset+i,byte);
+    }
+}
+
+void plx9030::setMask(unsigned long int base, long int offset, unsigned char mask) {
+    char byte = read8(base,offset);
+    byte |= mask;
+    write8(base,offset,byte);
+}
+
+void plx9030::unsetMask(unsigned long int base, long int offset, unsigned char mask) {
+    char byte = read8(base,offset);
+    byte &= ~mask;
+    write8(base,offset,byte);
+}
