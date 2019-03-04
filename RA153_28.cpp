@@ -158,7 +158,34 @@ void RA153_28::init_device()
 	attr_RightEnd_read = new Tango::DevBoolean[1];
 	/*----- PROTECTED REGION ID(RA153_28::init_device) ENABLED START -----*/
 	
-	//	Initialize device
+	if(p9030 != NULL) delete p9030;
+	p9030 = new PLX9030::plx9030(device);
+	if(p9030->getStatus()!=PLX9030::STATUS_OK){
+		device_state = Tango::FAULT;
+		device_status = "Error open device " + device + "\n";
+		return;
+	}
+
+	if(c_ra153_28 != NULL) delete c_ra153_28;
+	c_ra153_28 = new cRA153_28::controller_RA153_28(p9030);
+	c_ra153_28->encoder_bits = 26;
+	c_ra153_28->setChannel(channel);
+	c_ra153_28->setSSISpeed(50);
+	c_ra153_28->setSpeed(speed);
+	c_ra153_28->initMotion();
+
+	device_state = Tango::ON;
+
+
+	/* DEBUG */
+	std::cout << "\t\t\t\tCS0: \t\t\t\tCS1:\n";
+	for(int i=0;i<32;i++){
+		std::cout << std::dec << i << " - " << std::hex << "0x" << i << ":\t\t0x" << (uint16_t)(p9030->read8(PLX9030::CS0,i)&0xff);
+		std::cout << "\t\t\t\t0x" << (uint16_t)(p9030->read8(PLX9030::CS1,i)&0xff) << "\n";
+	}
+	std::cout << "\n";
+
+
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_28::init_device
 }
