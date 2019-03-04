@@ -173,6 +173,8 @@ void RA153_28::init_device()
 	c_ra153_28->setSSISpeed(50);
 	c_ra153_28->setSpeed(speed);
 	c_ra153_28->initMotion();
+	//c_ra153_28->runMition(100,true);
+	c_ra153_28->stopMotion();
 
 	device_state = Tango::ON;
 

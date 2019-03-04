@@ -11,17 +11,22 @@ namespace cRA153_28 {
 
     /* CS0 */
     #define CONTROL_SSI_AND_MOTION 0x00
-    #define CLR_FS0 0x00                                // 0-bit set/unset frequency formier
-    #define ENF_FS0 0x01                                // 1-bit enable/disable frequency formier
-    #define CLR_STEP0 0x02                              // 2-bit enable/clear steps
-    #define EN_STEP0 0x04                               // 3-bit enable/disable steps
-    #define CLR_SSI 0x08                                // 4-bit
-    #define EN_SSI 0x10                                 // 5-bit
+    #define CLR_FS0 0x01                                // 0-bit set/unset frequency formier
+    #define ENF_FS0 0x02                                // 1-bit enable/disable frequency formier
+    #define CLR_STEP0 0x04                              // 2-bit enable/clear steps
+    #define EN_STEP0 0x08                               // 3-bit enable/disable steps
+    #define CLR_SSI 0x10                                // 4-bit
+    #define EN_SSI 0x20                                 // 5-bit
 
     #define PARAMETERS_SSI_AND_MOTION 0x01
-    #define EN_ENDS 0x02                                // 2-bit enable ends (концевики)
+    #define CYCLE_END 0x01                              // 0-bit trigger cycle end
+    #define DIR 0x02                                    // 1-bit direction
+    #define EN_ENDS 0x04                                // 2-bit enable ends (концевики)
+    #define PWR_ON 0x08                                 // 3-bit power on
 
     #define SPEED_REGISTER 0x04
+
+    #define STEPS_REGISTER 0x07
 
     #define ENCODER_BITS_REG 0x0d                       // (offset: 13)
 
@@ -67,6 +72,10 @@ namespace cRA153_28 {
 
         /* init motion */
         void initMotion(void);
+        /* run motion */
+        void runMition(uint32_t count_steps, bool direction);
+        /* stop motion */
+        void stopMotion(void);
 
     };
 
