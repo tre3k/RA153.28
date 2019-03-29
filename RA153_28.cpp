@@ -373,8 +373,17 @@ void RA153_28::write_rPosition(Tango::WAttribute &attr)
 	Tango::DevDouble	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(RA153_28::write_rPosition) ENABLED START -----*/
-	
-	
+
+	bool direction;
+
+	if(w_val >= 0) direction = true;
+	if(w_val < 0){
+		direction = false;
+		w_val = -w_val;
+	}
+
+	c_ra153_28->runMition(w_val*stepToUnit,direction);
+
 	/*----- PROTECTED REGION END -----*/	//	RA153_28::write_rPosition
 }
 //--------------------------------------------------------
@@ -411,7 +420,8 @@ void RA153_28::write_aPosition(Tango::WAttribute &attr)
 	Tango::DevDouble	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(RA153_28::write_aPosition) ENABLED START -----*/
-	
+
+
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_28::write_aPosition
 }
@@ -537,6 +547,7 @@ void RA153_28::stop()
 	/*----- PROTECTED REGION ID(RA153_28::stop) ENABLED START -----*/
 	
 	//	Add your own code
+	c_ra153_28->stopMotion();
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_28::stop
 }
