@@ -187,8 +187,6 @@ void RA153_28::init_device()
 	}
 	std::cout << "\n";
 
-
-	
 	/*----- PROTECTED REGION END -----*/	//	RA153_28::init_device
 }
 
@@ -477,6 +475,8 @@ void RA153_28::read_LeftEnd(Tango::Attribute &attr)
 	DEBUG_STREAM << "RA153_28::read_LeftEnd(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(RA153_28::read_LeftEnd) ENABLED START -----*/
 	//	Set the attribute value
+
+	*attr_LeftEnd_read = c_ra153_28->getLeftEnd();
 	attr.set_value(attr_LeftEnd_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_28::read_LeftEnd
@@ -495,8 +495,10 @@ void RA153_28::read_CentralEnd(Tango::Attribute &attr)
 	DEBUG_STREAM << "RA153_28::read_CentralEnd(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(RA153_28::read_CentralEnd) ENABLED START -----*/
 	//	Set the attribute value
+
+	*attr_CentralEnd_read = c_ra153_28->getCentralEnd();
 	attr.set_value(attr_CentralEnd_read);
-	
+
 	/*----- PROTECTED REGION END -----*/	//	RA153_28::read_CentralEnd
 }
 //--------------------------------------------------------
@@ -513,6 +515,8 @@ void RA153_28::read_RightEnd(Tango::Attribute &attr)
 	DEBUG_STREAM << "RA153_28::read_RightEnd(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(RA153_28::read_RightEnd) ENABLED START -----*/
 	//	Set the attribute value
+
+	*attr_RightEnd_read = c_ra153_28->getRightEnd();
 	attr.set_value(attr_RightEnd_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_28::read_RightEnd

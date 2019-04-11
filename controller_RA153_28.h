@@ -30,6 +30,11 @@ namespace cRA153_28 {
 
     #define ENCODER_BITS_REG 0x0d                       // (offset: 13)
 
+    #define ENDS_REG 0x0f                               // (offset: 15) I'dnt no what is the register?! just experemntal.. =)
+    #define LEFT_END 0x08                               // 3 bit
+    #define CENTRAL_END 0x10                            // 4 bit
+    #define RIGHT_END 0x20                              // 5 bit
+
     /* without channels */
     #define SSI_REGISTER 0x03                           // может называться по-другому...
     #define SSI_SPEED_REGISTER 0x13                     // (offset: 19)
@@ -49,6 +54,7 @@ namespace cRA153_28 {
         uint16_t c_ssi_speed;
 
 
+        uint8_t getEnds(void);
     /* global class public variable */
     public:
         uint8_t encoder_bits;
@@ -76,6 +82,12 @@ namespace cRA153_28 {
         void runMition(uint32_t count_steps, bool direction);
         /* stop motion */
         void stopMotion(void);
+        /* central End */
+        bool getCentralEnd(void);
+        /* left End */
+        bool getLeftEnd(void);
+        /* right End */
+        bool getRightEnd(void);
 
     };
 

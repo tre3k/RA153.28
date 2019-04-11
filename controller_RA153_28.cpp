@@ -103,3 +103,19 @@ void controller_RA153_28::stopMotion() {
     dev->unsetMask(PLX9030::CS0, CONTROL_SSI_AND_MOTION+c_channel*16, EN_STEP0);
     dev->unsetMask(PLX9030::CS0, PARAMETERS_SSI_AND_MOTION+c_channel*16, PWR_ON);
 }
+
+uint8_t controller_RA153_28::getEnds() {
+    return (0x78&(dev->read8(PLX9030::CS0, ENDS_REG+c_channel*16)));
+}
+
+bool controller_RA153_28::getCentralEnd() {
+    return getEnds() & CENTRAL_END ? false : true;
+}
+
+bool controller_RA153_28::getLeftEnd() {
+    return getEnds() & LEFT_END ? false : true;
+}
+
+bool controller_RA153_28::getRightEnd() {
+    return getEnds() & RIGHT_END ? false : true;
+}
