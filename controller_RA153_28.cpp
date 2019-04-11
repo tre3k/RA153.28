@@ -119,3 +119,7 @@ bool controller_RA153_28::getLeftEnd() {
 bool controller_RA153_28::getRightEnd() {
     return getEnds() & RIGHT_END ? false : true;
 }
+
+uint32_t controller_RA153_28::getCounts() {
+    return dev->read24(PLX9030::CS0, STEPS_GET_REGISTER+c_channel*16);
+}

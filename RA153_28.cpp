@@ -173,10 +173,10 @@ void RA153_28::init_device()
 	c_ra153_28->setSSISpeed(50);
 	c_ra153_28->setSpeed(speed);
 	c_ra153_28->initMotion();
-	//c_ra153_28->runMition(100,true);
 	c_ra153_28->stopMotion();
 
 	device_state = Tango::ON;
+	device_status = Tango::STOP;
 
 
 	/* DEBUG */
@@ -351,6 +351,19 @@ void RA153_28::read_rPosition(Tango::Attribute &attr)
 	DEBUG_STREAM << "RA153_28::read_rPosition(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(RA153_28::read_rPosition) ENABLED START -----*/
 	//	Set the attribute value
+
+	/* DEBUG */
+
+	*attr_rPosition_read = c_ra153_28->getCounts()/stepToUnit;
+
+	if(*attr_rPosition_read == 0.0){
+		c_ra153_28->stopMotion();
+		device_state = Tango::ON;
+		device_status = Tango::STOP;
+	}else{
+		device_state = Tango::MOVING;
+	}
+
 	attr.set_value(attr_rPosition_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_28::read_rPosition

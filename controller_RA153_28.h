@@ -27,6 +27,7 @@ namespace cRA153_28 {
     #define SPEED_REGISTER 0x04
 
     #define STEPS_REGISTER 0x07
+    #define STEPS_GET_REGISTER 0x0a
 
     #define ENCODER_BITS_REG 0x0d                       // (offset: 13)
 
@@ -88,6 +89,9 @@ namespace cRA153_28 {
         bool getLeftEnd(void);
         /* right End */
         bool getRightEnd(void);
+
+        /* read count steps */
+        uint32_t getCounts(void);
 
     };
 
