@@ -7,7 +7,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdbool.h>
-#include <stropts.h>
+//#include <stropts.h>
+#include <sys/ioctl.h>
 
 namespace PLX9030{
 
