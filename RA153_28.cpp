@@ -214,6 +214,7 @@ void RA153_28::get_device_property()
 	dev_prop.push_back(Tango::DbDatum("EncoderToUnit"));
 	dev_prop.push_back(Tango::DbDatum("LeftEndInverse"));
 	dev_prop.push_back(Tango::DbDatum("RightEndInverse"));
+	dev_prop.push_back(Tango::DbDatum("CentralEndInverse"));
 
 	//	is there at least one property to be read ?
 	if (dev_prop.size()>0)
@@ -304,6 +305,17 @@ void RA153_28::get_device_property()
 		}
 		//	And try to extract RightEndInverse value from database
 		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  rightEndInverse;
+
+		//	Try to initialize CentralEndInverse from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  centralEndInverse;
+		else {
+			//	Try to initialize CentralEndInverse from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  centralEndInverse;
+		}
+		//	And try to extract CentralEndInverse value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  centralEndInverse;
 
 	}
 
@@ -514,6 +526,7 @@ void RA153_28::read_LeftEnd(Tango::Attribute &attr)
 	//	Set the attribute value
 
 	*attr_LeftEnd_read = c_ra153_28->getLeftEnd();
+	if(leftEndInverse) *attr_LeftEnd_read = !(*attr_LeftEnd_read);
 	attr.set_value(attr_LeftEnd_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_28::read_LeftEnd
@@ -534,6 +547,7 @@ void RA153_28::read_CentralEnd(Tango::Attribute &attr)
 	//	Set the attribute value
 
 	*attr_CentralEnd_read = c_ra153_28->getCentralEnd();
+	if(centralEndInverse) *attr_CentralEnd_read = !(*attr_CentralEnd_read);
 	attr.set_value(attr_CentralEnd_read);
 
 	/*----- PROTECTED REGION END -----*/	//	RA153_28::read_CentralEnd
@@ -554,6 +568,7 @@ void RA153_28::read_RightEnd(Tango::Attribute &attr)
 	//	Set the attribute value
 
 	*attr_RightEnd_read = c_ra153_28->getRightEnd();
+	if(rightEndInverse) *attr_RightEnd_read = !(*attr_RightEnd_read);
 	attr.set_value(attr_RightEnd_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_28::read_RightEnd

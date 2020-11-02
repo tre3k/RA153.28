@@ -82,6 +82,8 @@ public:
 	Tango::DevBoolean	leftEndInverse;
 	//	RightEndInverse:	Inverse/noninverse: true/false
 	Tango::DevBoolean	rightEndInverse;
+	//	CentralEndInverse:	Inverse/noninverse: true/false
+	Tango::DevBoolean	centralEndInverse;
 
 //	Attribute data members
 public:
