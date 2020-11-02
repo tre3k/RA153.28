@@ -78,6 +78,10 @@ public:
 	Tango::DevDouble	stepToUnit;
 	//	EncoderToUnit:	Coefficient for conver encoder value to metric or degree unit
 	Tango::DevBoolean	encoderToUnit;
+	//	LeftEndInverse:	Inverse/noninverse: true/false
+	Tango::DevBoolean	leftEndInverse;
+	//	RightEndInverse:	Inverse/noninverse: true/false
+	Tango::DevBoolean	rightEndInverse;
 
 //	Attribute data members
 public:

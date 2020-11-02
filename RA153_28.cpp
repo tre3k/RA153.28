@@ -212,6 +212,8 @@ void RA153_28::get_device_property()
 	dev_prop.push_back(Tango::DbDatum("Speed"));
 	dev_prop.push_back(Tango::DbDatum("StepToUnit"));
 	dev_prop.push_back(Tango::DbDatum("EncoderToUnit"));
+	dev_prop.push_back(Tango::DbDatum("LeftEndInverse"));
+	dev_prop.push_back(Tango::DbDatum("RightEndInverse"));
 
 	//	is there at least one property to be read ?
 	if (dev_prop.size()>0)
@@ -280,6 +282,28 @@ void RA153_28::get_device_property()
 		}
 		//	And try to extract EncoderToUnit value from database
 		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  encoderToUnit;
+
+		//	Try to initialize LeftEndInverse from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  leftEndInverse;
+		else {
+			//	Try to initialize LeftEndInverse from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  leftEndInverse;
+		}
+		//	And try to extract LeftEndInverse value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  leftEndInverse;
+
+		//	Try to initialize RightEndInverse from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  rightEndInverse;
+		else {
+			//	Try to initialize RightEndInverse from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  rightEndInverse;
+		}
+		//	And try to extract RightEndInverse value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  rightEndInverse;
 
 	}
 
